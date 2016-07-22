@@ -3,7 +3,7 @@ CREATE DATABASE shop;
 CREATE TABLE items (
   id INT NOT NULL AUTO_INCREMENT,
   name VARCHAR(255) UNIQUE ,
-  decription TEXT,
+  description TEXT,
   category VARCHAR(255),
   price DECIMAL,
   stock INT NOT NULL,
