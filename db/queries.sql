@@ -46,7 +46,8 @@ CREATE TABLE photos (
   id INT NOT NULL AUTO_INCREMENT,
   item_id INT NOT NULL,
   link TEXT,
-  PRIMARY KEY (id)
+  PRIMARY KEY (id),
+  FOREIGN KEY (item_id) REFERENCES items (id)
 );
 
 CREATE TABLE item_order (
