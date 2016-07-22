@@ -1,0 +1,15 @@
+1. Mimimalizacja pisania kodu html
+
+przesyłamy getem stronę którą chcemy wyświetlić i robimy tak:
+if ($_GET['action']) {
+    $action = $_GET['action'];
+    if (file_exist($action . ".php")) {
+        require $action. '.php';
+    }
+}
+nie musimy powtarzać kodu
+lub załączamy pliki footer i header do każdej podstrony.
+
+2.Wyświetlanie headera po wysłaniu czegoś do przeglądarki
+
+ob_end_flush() - można wysłać header po wysłaniu czegoś
