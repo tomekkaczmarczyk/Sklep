@@ -3,7 +3,7 @@
 przesyłamy getem stronę którą chcemy wyświetlić i robimy tak:
 if ($_GET['action']) {
     $action = $_GET['action'];
-    if (file_exist($action . ".php")) {
+    if (file_exists($action . ".php")) {
         require $action. '.php';
     }
 }

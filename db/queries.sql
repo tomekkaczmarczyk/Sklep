@@ -67,3 +67,9 @@ ALTER TABLE item_order CONVERT TO CHARACTER SET utf8 COLLATE utf8_polish_ci;
 ALTER TABLE messages CONVERT TO CHARACTER SET utf8 COLLATE utf8_polish_ci;
 ALTER TABLE orders CONVERT TO CHARACTER SET utf8 COLLATE utf8_polish_ci;
 ALTER TABLE photos CONVERT TO CHARACTER SET utf8 COLLATE utf8_polish_ci;
+
+UPDATE `items` SET name='nowa_nazwa' WHERE id='zmienna';
+
+DELETE FROM items WHERE id='zmienna';
+
+SELECT * FROM items WHERE category='zmienna'

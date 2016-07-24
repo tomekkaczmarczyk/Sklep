@@ -1,10 +1,10 @@
 <?php
-
+require_once "config.php";
 function connectToDataBase() {
     $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 
     if (!$conn) {
-        die ("Connection faild. Error: " . $conn->connect_error);
+        die ("Connection failed. Error: " . $conn->connect_error);
     }
     return $conn;
 }
