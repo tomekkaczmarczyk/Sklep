@@ -2,21 +2,21 @@
 
 class Item implements JsonSerializable
 {
-    private $id;
     private $name;
     private $description;
     private $category;
     private $price;
     private $stock;
+    private $id;
 
     public function __construct($name, $description, $category, $price, $stock, $id = -1)
     {
-        $this->id = $id;
         $this->name = $name;
         $this->description = $description;
         $this->category = $category;
         $this->price = $price;
         $this->stock = $stock;
+        $this->id = $id;
     }
 
     public function getId()
@@ -130,7 +130,12 @@ class Item implements JsonSerializable
 
     function jsonSerialize()
     {
-        return [$this->name, $this->description, $this->category, $this->price, $this->stock, $this->id];
+        return [$this->name,
+            $this->description,
+            $this->category,
+            $this->price,
+            $this->stock,
+            $this->id];
     }
 }
 
