@@ -91,6 +91,31 @@ class Order implements JsonSerializable
         }
     }
 
+    public static function getAllByUser($conn, $user_id) {
+        $query = "SELECT * FROM orders WHERE user_id='{$user_id}'";
+        $result = $conn->query($query);
+
+        if (!$result) {
+            echo "Błąd - nie pobrano zamówień z bazy danych" . $conn->error;
+            return false;
+        } else {
+            if ($result->num_rows > 0) {
+                $orders = [];
+                while($row = $result->fetch_assoc()) {
+                    $orderObj = new Order(
+                        $row['user_id'],
+                        $row['status'],
+                        $row['sum'],
+                        $row['date'],
+                        $row['id']
+                    );
+                    $orders[] = $orderObj;
+                }
+                return $orders;
+            }
+        }
+    }
+
     public function jsonSerialize()
     {
         return [$this->user_id,
@@ -99,6 +124,4 @@ class Order implements JsonSerializable
             $this->date,
             $this->id];
     }
-
-
 }
