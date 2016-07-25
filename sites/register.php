@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $user = new User($id, $name, $surname, $mail, $hashedpassword, $address);
         var_dump($user);
         $user->saveUser($conn);
-        //redirect('login.php');
+        redirect('login.php');
         var_dump($user);
     }
 }
@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <tr>
             <td align="right">
                 <label>Imię:
-                    <input type="text" name="name">
+                    <input type="text" name="name" placeholder="Jan">
                 </label>
             </td>
         </tr>
@@ -41,28 +41,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <tr>
             <td align="right">
                 <label>Nazwisko:
-                    <input type="text" name="surname">
+                    <input type="text" name="surname" placeholder="Kowalski">
                 </label>
             </td>
         </tr>
         <tr>
             <td align="right">
                 <label>Email:
-                    <input type="email" name="mail">
+                    <input type="email" name="mail" placeholder="jan.kowalski@gmail.com">
                 </label>
             </td>
         </tr>
         <tr>
             <td align="right">
                 <label>Hasło:
-                    <input type="password" name="password">
+                    <input type="password" name="password" placeholder="********">
                 </label>
             </td>
         </tr>
         <tr>
             <td align="right">
                 <label>Adres:
-                    <input type="text" name="address">
+                    <input type="text" name="address" placeholder="ul. Woronicza 17, 00-000 Warszawa">
                 </label>
             </td>
         </tr>
