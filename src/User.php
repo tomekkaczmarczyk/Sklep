@@ -43,12 +43,12 @@ class User
 
     public function getHashedPassword()
     {
-        return $this->hashedPassword;
+        return $this->hashedpassword;
     }
 
-    public function setPassword($password)
+    public function setPassword($hashedpassword)
     {
-        $this->hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        $this->hashedPassword = password_hash($hashedpassword, PASSWORD_DEFAULT);
     }
 
 
@@ -99,19 +99,19 @@ class User
         $this->is_admin = $is_admin;
     }
 
-    public function verifyPassword($password)
+    public function verifyPassword($hashedpassword)
     {
-        return password_verify($password, $this->hashedPassword);
+        return password_verify($hashedpassword, $this->hashedpassword);
     }
 
     public function saveUser(mysqli $conn)
     {
         if ($this->id === -1) {
             $query = "INSERT INTO users (name, surname, mail, password, address)"
-                . "VALUES ('{$this->name}', '{$this->surname}', '{$this->mail}', '{$this->hashedPassword}', '{$this->address}')";
+                . "VALUES ('{$this->name}', '{$this->surname}', '{$this->mail}', '{$this->hashedpassword}', '{$this->address}')";
             $result = $conn->query($query);
 
-            if($result == true) {
+            if ($result == true) {
                 $this->id = $conn->insert_id;
 
                 return true;
@@ -170,7 +170,7 @@ class User
         $result = $conn->query($query);
 
         if (!$result) {
-            die('Error: ' .$conn->error);
+            die('Error: ' . $conn->error);
         }
 
         $users = [];
@@ -223,7 +223,7 @@ class User
         $query = "SELECT * FROM messages WHERE user_id='{$this->id}'  or admin_id='{$this->id}' ORDER BY `date` DESC";
         $result = $conn->query($query);
         if (!$result) {
-            die('Error: ' .$conn->error);
+            die('Error: ' . $conn->error);
         }
         $messages = [];
         if (0 < $result->num_rows) {
@@ -248,14 +248,14 @@ class User
         $query = "SELECT * FROM orders WHERE user_id='{$this->id}'  ORDER BY `date` DESC";
         $result = $conn->query($query);
         if (!$result) {
-            die('Error: ' .$conn->error);
+            die('Error: ' . $conn->error);
         }
         $orders = [];
         if (0 < $result->num_rows) {
             foreach ($result as $order) {
                 $orderObj = new Order(
                     $order['user_id'],
-                    $order ['status'],
+                    $order['status'],
                     $order['sum'],
                     $order['date'],
                     $order['id']
@@ -269,7 +269,9 @@ class User
     }
 
 
-};
+}
+
+;
 
 
 

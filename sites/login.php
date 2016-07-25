@@ -1,5 +1,5 @@
 <form action="#">
-    <label>Login
+    <label>Mail
         <input type="text" name="login" style="display: block">
     </label>
     <label>Hasło
