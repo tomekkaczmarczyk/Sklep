@@ -1,3 +1,4 @@
+<meta charset="UTF-8">
 <form method="post">
 <label>Id:
     <input type="number" step="1" name="id">

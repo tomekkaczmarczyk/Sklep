@@ -128,6 +128,19 @@ class Item implements JsonSerializable
         }
     }
 
+    public static function getAllCategories($conn) {
+        $query = "SELECT * FROM items";
+        $result = $conn->query($query);
+
+        $categories = [];
+        while($row = $result->fetch_assoc()) {
+            if (!(in_array($row['category'], $categories))) {
+                $categories[] = $row['category'];
+            }
+        }
+        return $categories;
+    }
+
     function jsonSerialize()
     {
         return [$this->name,

@@ -1,7 +1,7 @@
 <?php
 
-require_once '../src/dbConnection.php';
-require_once '../src/User.php';
+require_once 'src/dbConnection.php';
+require_once 'src/User.php';
 
 $conn = connectToDataBase();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -56,6 +56,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </table>
 </form>
 
-</form>
 </body>
 </html>
