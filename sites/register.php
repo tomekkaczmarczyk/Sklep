@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $surname = $conn->real_escape_string($_POST['surname']);
         $address = $conn->real_escape_string($_POST['address']);
         $is_admin = 0;
-        $user = new User($id, $name, $surname, $mail, $hashedpassword, $address);
+        $user = new User($name, $surname, $mail, $hashedpassword, $address, $id);
         var_dump($user);
         $user->saveUser($conn);
         redirect('login.php');

@@ -3,24 +3,23 @@
 class User
 {
 
-    private $id;
     private $name;
     private $surname;
     private $mail;
     private $hashedpassword;
     private $address;
     private $is_admin;
+    private $id;
 
-
-    public function __construct($id = -1, $name = "", $surname = "", $mail = "", $hashedpassword = "", $address = "", $is_admin = 0)
+    public function __construct($name = "", $surname = "", $mail = "", $hashedpassword = "", $address = "", $is_admin = 0, $id = -1)
     {
-        $this->id = $id;
         $this->name = $name;
         $this->surname = $surname;
         $this->mail = $mail;
         $this->hashedpassword = $hashedpassword;
         $this->address = $address;
         $this->is_admin = $is_admin;
+        $this->id = $id;
     }
 
 
@@ -177,13 +176,13 @@ class User
 
         foreach ($result as $user) {
             $userObj = new User(
-                $row['name'],
-                $row['surname'],
-                $row['mail'],
-                $row['password'],
-                $row['address'],
-                $row['is_admin'],
-                $row['id']
+                $user['name'],
+                $user['surname'],
+                $user['mail'],
+                $user['password'],
+                $user['address'],
+                $user['is_admin'],
+                $user['id']
             );
 
             $users[] = $userObj;
