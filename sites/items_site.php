@@ -15,8 +15,7 @@
 
 <?php
 
-if (($_SERVER['REQUEST_METHOD'] == 'GET') and $_GET['category'] != '') {
-    var_dump($_GET);
+if (($_SERVER['REQUEST_METHOD'] == 'GET') and ($_GET['category'])) {
     $conn = connectToDataBase();
     $category = $_GET['category'];
     $items = Item::getAllByCategory($conn, $category);

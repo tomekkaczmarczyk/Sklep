@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>Strona zamówienia</title>
+    <title>Koszyk</title>
     <meta charset="UTF-8">
 </head>
 <body>
@@ -9,6 +9,7 @@
         <button type="submit" name="logout">Wyloguj</button>
     </form>
 </div>
+
 <?php
 require_once '../config.php';
 require_once '../src/dbConnection.php';
@@ -23,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' and ($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
     $orders = Order::getAllByUser($conn, $user_id);
     foreach ($orders as $order) {
-        if ($order->getstatus() != 1) {
+        if ($order->getstatus() == 1) {
             echo $order->getid() . "<br>";
             echo "Data " . $order->getdate() . "<br>";
             echo "Status " . $order->getstatus() . "<br>";
@@ -46,5 +47,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' and ($_SESSION['user_id'])) {
     redirect('../index.php');
 }
 ?>
+
 </body>
 </html>

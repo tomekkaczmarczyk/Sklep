@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($loggedUser) {
             session_start();
             $_SESSION['user_id'] = $loggedUser->getId();
-            redirect('../index.php');
+//            redirect('index.php');
         } else {
             echo "Błędne dane logowania.<br>";
         }
@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
 
-<form action="#" method="post">
+<form action="index.php" method="post">
     <table bgcolor="silver">
         <tr>
             <td align="right">

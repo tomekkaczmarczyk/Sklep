@@ -6,6 +6,11 @@
         <meta charset="UTF-8">
     </head>
     <body>
+    <div>
+        <form method="post">
+            <button type="submit" name="logout">Wyloguj</button>
+        </form>
+    </div>
     <?php
     require_once 'config.php';
     require_once "src/dbConnection.php";
@@ -23,6 +28,7 @@
         echo "<tr><td><a href='" . $url . "'>" . $cat . "</a></td></tr>";
     }
     ?>
+    <p><a href="sites/order_site.php">Twoje zamówienia</a></p>
 </table>
     </body>
 </html>
