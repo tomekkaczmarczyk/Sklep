@@ -7,6 +7,7 @@
 <div>
     <form method="post">
         <button type="submit" name="logout">Wyloguj</button>
+
     </form>
 </div>
 <?php
