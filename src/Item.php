@@ -141,6 +141,7 @@ class Item implements JsonSerializable
         return $categories;
     }
 
+
     function jsonSerialize()
     {
         return [$this->name,
