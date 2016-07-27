@@ -267,10 +267,21 @@ class User
         }
     }
 
+    public function delUser()
+    {
+        if ($this->is_admin === 1){
+        $query = "DELETE FROM users WHERE id='{$id}'";
+        $result = $conn->query($query);
 
-}
+        if (!$result) {
+            echo "Nie udało się usunąć użytkownika" . $conn->error;
+        }
+        }else{
+            echo "Nie posiadasz uprawnień do usuwania użytkowników.";
+        }
+    }
 
-;
+};
 
 
 
