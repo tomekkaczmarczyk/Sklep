@@ -60,7 +60,7 @@ CREATE TABLE item_order (
   FOREIGN KEY (order_id) REFERENCES orders(id)
 );
 
-ALTER DATABASE shop CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+ALTER DATABASE shop CHARACTER SET utf8 COLLATE utf8_polish_ci;
 ALTER TABLE items CONVERT TO CHARACTER SET utf8 COLLATE utf8_polish_ci;
 ALTER TABLE users CONVERT TO CHARACTER SET utf8 COLLATE utf8_polish_ci;
 ALTER TABLE item_order CONVERT TO CHARACTER SET utf8 COLLATE utf8_polish_ci;
