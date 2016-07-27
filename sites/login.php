@@ -1,8 +1,10 @@
-<?php
+﻿<?php
 
+<<<<<<< HEAD
+require_once '../config.php';
 require_once '../src/dbConnection.php';
 require_once '../src/User.php';
-require_once '../config.php';
+>>>>>>> c0f8ee59a5d5cc015e335b69c6568ff77ff8a70d
 
 $conn = connectToDataBase();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
