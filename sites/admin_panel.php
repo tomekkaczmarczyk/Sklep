@@ -1,4 +1,6 @@
 <?php
+
+
 if (isset($_SESSION['user_id'])) {
     $loggedUser = User::getUser($conn, $_SESSION['user_id']);
     echo "Zalogowano jako: " . $loggedUser->getMail();
@@ -16,7 +18,7 @@ if (isset($_SESSION['user_id'])) {
 
 </div>
 <p>Dodaj produkt do bazy:</p><br>
-<form method="post" action="index.php">
+<form method="post" action="index.php?action=sites/admin_panel">
     <label>
         Nazwa:
         <input type="text" name="name"><br>
@@ -56,6 +58,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $item->saveToDb($conn);
         echo "Produkt zapisano";
+    } else{
+        echo "nie udało sie";
     }
 }
 
@@ -70,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($result->num_rows > 0) {
 
         echo "<table cellpadding=\"2\" border=1>";
-        echo "<th>Nazwa</th><th>Opis</th><th>Kategoria</th><th>Cena</th><th>Stan</th><th>Opcje</th>";
+        echo "<th>Nazwa</th><th>Opis</th><th>Kategoria</th><th>Cena</th><th>Stan</th><th>Opcje</th><th>Dodaj zdjęcie</th>";
         while ($r = $result->fetch_assoc()) {
 
             echo "<tr>";
@@ -80,9 +84,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo "<td>" . $r['price'] . "</td>";
             echo "<td>" . $r['stock'] . "</td>";
 
+            $id = $r['id'];
             $delurl = "sites/del_item.php?name=" . $r['name'];
 
             echo "<td> <a href='" . $delurl . "'>Usun</a> </td>";
+            echo "<td><FORM ACTION=\"sites/add_photo.php\" METHOD=\"POST\" ENCTYPE=\"multipart/form-data\">
+                 <INPUT type=\"file\" name=\"zdjecie\" >
+                 <INPUT type='hidden' name='id' value='$id'>
+                 <input type=\"submit\" name=\"ok\" value=\"Wyslij zdjęcie do bazy\"/></FORM></td>";
+
             echo "</tr>";
         }
         echo "</table>";
