@@ -1,9 +1,4 @@
 <?php
-require_once '../config.php';
-require_once '../src/dbConnection.php';
-require_once '../src/User.php';
-
-$conn = connectToDataBase();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['mail']) and isset($_POST['password']) and isset($_POST['name']) and isset($_POST['surname']) and isset($_POST['address'])) {
         $id = -1;
@@ -14,21 +9,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $address = $conn->real_escape_string($_POST['address']);
         $is_admin = 0;
         $user = new User($name, $surname, $mail, $hashedpassword, $address, $id);
-        var_dump($user);
         $user->saveUser($conn);
-        redirect('login.php');
-        var_dump($user);
+        redirect('index.php');
     }
 }
 
 ?>
-
-<html>
-<head>
-    <title>Formularz rejestracji</title>
-    <meta charset="UTF-8">
-</head>
-<body>
 <form action="" method="post">
     <table bgcolor="silver">
         <tr>
@@ -76,6 +62,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </tr>
     </table>
 </form>
-</body>
-</html>
 

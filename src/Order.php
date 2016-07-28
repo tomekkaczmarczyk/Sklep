@@ -82,7 +82,27 @@ class Order implements JsonSerializable
         }
     }
 
-    public static function delOrder(mysqli $conn, $id) {
+    public static function getBasket($conn, $user_id)
+    {
+        $query = "SELECT * FROM orders WHERE user_id='{$user_id}' AND status='1'";
+        $result = $conn->query($query);
+
+        if (!$result) {
+            return false;
+        } else {
+            $row = $result->fetch_assoc();
+            $basket = new Order(
+                        $row['user_id'],
+                        $row['status'],
+                        $row['sum'],
+                        $row['date'],
+                        $row['id']);
+            return $basket;
+        }
+    }
+
+    public static function delOrder(mysqli $conn, $id)
+    {
         $query = "DELETE FROM items WHERE id='{$id}'";
         $result = $conn->query($query);
 

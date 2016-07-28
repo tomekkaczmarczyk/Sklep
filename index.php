@@ -6,40 +6,52 @@
         <meta charset="UTF-8">
     </head>
     <body>
+    <?php
+    function __autoload($class_name) {
+        include 'src/' . $class_name . '.php';
+    }
+    require_once 'config.php';
+    require_once "src/dbConnection.php";
+    $conn = connectToDataBase();
+    session_start();
+    ?>
     <div>
         <form method="post">
             <button type="submit" name="logout">Wyloguj</button>
         </form>
     </div>
+    <div>
+        <a href="index.php">Strona główna</a>
+    </div>
+    <table>
+        <?php
+        $categories = Item::getAllCategories($conn);
+        foreach ($categories as $cat) {
+            $url = "index.php?action=sites/items_site&category=" . $cat;
+            echo "<tr><td><a href='" . $url . "'>" . $cat . "</a></td></tr>";
+        }
+        ?>
+    </table>
     <?php
-    require_once 'config.php';
-    require_once "src/dbConnection.php";
-    require_once "src/Item.php";
-    require_once 'sites/login.php';
-    ?>
-    <p><a href="sites/register.php">Nie masz konta? Zarejestruj się!</a></p>
-<table>
-    <?php
-
-    $conn = connectToDataBase();
-    $categories = Item::getAllCategories($conn);
-    foreach ($categories as $cat) {
-        $url = "sites/items_site.php?category=" . $cat;
-        echo "<tr><td><a href='" . $url . "'>" . $cat . "</a></td></tr>";
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' and isset($_POST['logout'])) {
+        unset($_SESSION['user_id']);
+        unset($_GET['action']);
     }
-    ?>
-    <p><a href="sites/order_site.php">Twoje zamówienia</a></p>
-</table>
+
+    if (isset($_GET['action'])) {
+        $file = $_GET['action'];
+        if (file_exists($file . '.php')) {
+            require_once $file . '.php';
+        }
+    } else {
+        require 'sites/login.php';
+    }
+?>
     </body>
 </html>
 
 <?php
-//if ($_GET['action']) {
-//    $file = $_GET['action'];
-//    if (file_exists($file . '.php')) {
-//        require_once $file . '.php';
-//    }
-//} else {
-//    require 'sites/login.php';
-//}
-//?>
+//var_dump($_POST);
+var_dump($_GET);
+//var_dump($_SESSION);
+?>

@@ -1,52 +1,42 @@
-<html>
-<head>
-    <title>Koszyk</title>
-    <meta charset="UTF-8">
-</head>
-<body>
-<div>
-    <form method="post">
-        <button type="submit" name="logout">Wyloguj</button>
-    </form>
-</div>
-
 <?php
-require_once '../config.php';
-require_once '../src/dbConnection.php';
-require_once '../src/Order.php';
-$conn = connectToDataBase();
-session_start();
-if ($_SERVER['REQUEST_METHOD'] === 'POST' and (($_POST['logout']))) {
-    unset($_SESSION['user_id']);
+$basket = Order::getBasket($conn, $_SESSION['user_id']);
+$basket_id = $basket->getid();
+if (isset($_GET['item_add_id'])) {
+    $newItemId = $_GET['item_add_id'];
+    $query = "INSERT INTO `item_order` (`item_id`, `amount`, `order_id`)"
+        . "VALUES ('{$newItemId}', '1', '{$basket_id}')";
+    $result = $conn->query($query);
+    if (!$result) {
+        echo "Błąd dodania produktu to zamówienia" . $conn->error;
+    }
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'GET' and ($_SESSION['user_id'])) {
-    $user_id = $_SESSION['user_id'];
-    $orders = Order::getAllByUser($conn, $user_id);
-    foreach ($orders as $order) {
-        if ($order->getstatus() == 1) {
-            echo $order->getid() . "<br>";
-            echo "Data " . $order->getdate() . "<br>";
-            echo "Status " . $order->getstatus() . "<br>";
-            echo "Suma " . $order->getsum() . "<br>";
-            echo "Produkty:<br>";
-            $query = "SELECT * FROM item_order WHERE order_id='{$order->getid()}'";
-            $result = $conn->query($query);
-            $products = [];
-            foreach ($result as $row) {
-                $products[] = [$row['item_id'], $row['amount']];
-            }
-
-            foreach ($products as $product) {
-                echo $product[0] . " ilość: ";
-                echo $product[1] . "<br>";
-            }
-        }
-    }
-} else {
-    redirect('../index.php');
+echo $basket_id . "<br>";
+echo "Data " . $basket->getdate() . "<br>";
+echo "Status " . $basket->getstatus() . "<br>";
+echo "Suma " . $basket->getsum() . "<br>";
+echo "Produkty:<br>";
+$query = "SELECT * FROM item_order WHERE order_id='{$basket->getid()}'";
+$result = $conn->query($query);
+$products = [];
+foreach ($result as $row) {
+    $products[] = [$row['item_id'], $row['amount']];
 }
 ?>
+<table border="1px">
+    <tr><td>Produkt</td>
+    <td>Ilość</td></tr>
+<?php
+foreach ($products as $product) {
+    $id = $product[0];
+    $amount = $product[1];
+    $item = Item::getById($conn, $id);
+    $name = $item->getName();
+    echo "<tr>";
+    echo "<td>" . $name .  "</td>";
+    echo "<td>" . $amount . "</td>";
+    echo "</tr>";
+}
+?>
+</table>
 
-</body>
-</html>

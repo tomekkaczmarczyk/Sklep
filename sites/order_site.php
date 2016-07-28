@@ -1,25 +1,4 @@
-<html>
-<head>
-    <title>Strona zamówienia</title>
-    <meta charset="UTF-8">
-</head>
-<body>
-<div>
-    <form method="post">
-        <button type="submit" name="logout">Wyloguj</button>
-
-    </form>
-</div>
 <?php
-require_once '../config.php';
-require_once '../src/dbConnection.php';
-require_once '../src/Order.php';
-$conn = connectToDataBase();
-session_start();
-if ($_SERVER['REQUEST_METHOD'] === 'POST' and (($_POST['logout']))) {
-    unset($_SESSION['user_id']);
-}
-
 if ($_SERVER['REQUEST_METHOD'] === 'GET' and ($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
     $orders = Order::getAllByUser($conn, $user_id);
@@ -44,8 +23,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' and ($_SESSION['user_id'])) {
         }
     }
 } else {
-    redirect('../index.php');
+//    redirect('index.php');
 }
 ?>
-</body>
-</html>

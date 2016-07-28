@@ -74,10 +74,32 @@ class Item implements JsonSerializable
         $this->stock = $stock;
     }
 
+    public static function getById($conn, $id) {
+        $query = "SELECT * FROM items WHERE id='{$id}'";
+        $result = $conn->query($query);
+
+        if (!$result) {
+            echo "Błąd - nie pobrano przedmiotu z bazy danych" . $conn->error;
+            return false;
+        } else {
+            if ($result->num_rows > 0) {
+                $row = $result->fetch_assoc();
+                $itemObj = new Item(
+                        $row['name'],
+                        $row['description'],
+                        $row['category'],
+                        $row['price'],
+                        $row['stock'],
+                        $row['id']);
+                }
+                return $itemObj;
+        }
+    }
+
     public function saveToDb(mysqli $conn) {
         if ($this->id == -1){
-            $query = "INSERT INTO `items` (`id`, `name`, `description`, `category`, `price`, `stock`)"
-                      . "VALUES ({$this->id}, {$this->name}, {$this->description}, {$this->category}, {$this->price}, {$this->stock})";
+            $query = "INSERT INTO `items` (`name`, `description`, `category`, `price`, `stock`)"
+                      . "VALUES ('{$this->name}', '{$this->description}', '{$this->category}', '{$this->price}', '{$this->stock}')";
             $result = $conn->query($query);
             if (!$result) {
                 echo "Błąd zapisu przedmiotu do bazy danych" . $conn->error;

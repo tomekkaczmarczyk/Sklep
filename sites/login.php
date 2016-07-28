@@ -1,40 +1,4 @@
-﻿<?php
-
-
-require_once '../config.php';
-require_once '../src/dbConnection.php';
-require_once '../src/User.php';
-
-
-$conn = connectToDataBase();
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['mail']) and isset($_POST['password'])) {
-        $email = $_POST['mail'];
-        $password = $_POST['password'];
-        $loggedUser = User::logIn($conn, $email, $password);
-        if ($loggedUser) {
-            session_start();
-            $_SESSION['user_id'] = $loggedUser->getId();
-            redirect('../index.php');
-        } else {
-            echo "Błędne dane logowania.<br>";
-        }
-    } else {
-        echo "Błędne dane logowania.<br>";
-    }
-}
-
-?>
-
-
-<html>
-<head>
-    <title>Strona logowania</title>
-    <meta charset="UTF-8">
-</head>
-<body>
-
-<form action="../index.php" method="post">
+﻿<form action="index.php" method="post">
     <table bgcolor="silver">
         <tr>
             <td align="right">
@@ -57,7 +21,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </td>
         </tr>
     </table>
+    <p><a href="index.php?action=sites/register">Nie masz konta? Zarejestruj się!</a></p>
 </form>
 
-</body>
-</html>
+<?php
+$loggedUser = false;
+if (isset($_SESSION['user_id'])) {
+    $id = $_SESSION['user_id'];
+    $loggedUser = User::getUser($conn, $id);
+} elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['mail']) and isset($_POST['password'])) {
+        $email = $_POST['mail'];
+        $password = $_POST['password'];
+        $loggedUser = User::logIn($conn, $email, $password);
+        if ($loggedUser) {
+            $_SESSION['user_id'] = $loggedUser->getId();
+        } else {
+            echo "Błędne dane logowania.<br>";
+        }
+    }
+}
+
+if($loggedUser) {
+    if ($loggedUser->getIsAdmin()==1) {
+        redirect('index.php?action=sites/admin_panel');
+    } else {
+        echo "Zalogowano jako: " . $loggedUser->getMail();
+        echo "<p><a href='index.php?action=sites/order_site'>Twoje zamówienia</a></p>";
+        echo "<p><a href='index.php?action=sites/basket'>Twój koszyk</a></p>";
+    }
+}
+?>

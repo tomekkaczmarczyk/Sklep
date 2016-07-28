@@ -1,61 +1,22 @@
 <?php
-
-require_once '../src/Item.php';
-const DB_HOST = 'localhost';
-const DB_USER = 'root';
-const DB_PASS = 'coderslab';
-const DB_NAME = 'shop';
-
-$conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-
-function connectToDataBase()
-{
-    $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-
-    if (!$conn) {
-        die ("Connection failed. Error: " . $conn->connect_error);
-    }
-    return $conn;
+if (isset($_SESSION['user_id'])) {
+    $loggedUser = User::getUser($conn, $_SESSION['user_id']);
+    echo "Zalogowano jako: " . $loggedUser->getMail();
 }
-
-function redirectIfNotLoggedIn()
-{
-    if (!isset($_SESSION['user_id'])) {
-        header('Location: login.php');
-    }
-}
-
-function redirect($location)
-{
-    header("Location: $location");
-}
-
-
 ?>
-
-
-<html>
-<head>
-    <title>Panel administracyjny</title>
-    <meta charset="UTF-8">
-</head>
-<body>
 <div>
     <p>Zarządzaj kategoriami:</p>
     <?php
-    $conn2 = connectToDataBase();
-    $categories = Item::getAllCategories($conn2);
-
+    $categories = Item::getAllCategories($conn);
     foreach ($categories as $cat) {
-        $url = "items_site.php?category=" . $cat;
-        $url2 = "del_cat.php?category=" . $cat;
-        echo "<a href='" . $url . "'>" . $cat . "</a>" . "  " . "<a href='" . $url2 . "'>" . "Usun te kategorie" . "</a>" . "<br>";
+        $url = "sites/del_cat.php?category=" . $cat;
+        echo "<p>" . $cat . "  <a href='" . $url . "'>" . "Usun te kategorie" . "</a>" . "</p>";
     };
     ?>
 
 </div>
 <p>Dodaj produkt do bazy:</p><br>
-<form method="post" action="">
+<form method="post" action="index.php">
     <label>
         Nazwa:
         <input type="text" name="name"><br>
@@ -70,11 +31,11 @@ function redirect($location)
     </label>
     <label>
         Cena:
-        <input type="text" name="price"><br>
+        <input type="number" name="price" step="0.01" min="0"><br>
     </label>
     <label>
         Ilosć na stanie:
-        <input type="text" name="stock"><br>
+        <input type="number" name="stock" step="1" min="0"><br>
     </label>
     <button type="submit">Wyslij dane</button>
 </form>
@@ -93,11 +54,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $item = new Item($name, $description, $category, $price, $stock, $id);
 
-
         $item->saveToDb($conn);
-        var_dump($item);
-        //redirect('admin_panel.php');
-
+        echo "Produkt zapisano";
     }
 }
 
@@ -122,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo "<td>" . $r['price'] . "</td>";
             echo "<td>" . $r['stock'] . "</td>";
 
-            $delurl = "del_item.php?name=" . $r['name'];
+            $delurl = "sites/del_item.php?name=" . $r['name'];
 
             echo "<td> <a href='" . $delurl . "'>Usun</a> </td>";
             echo "</tr>";
@@ -130,10 +88,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo "</table>";
     }
     ?>
-
-
 </div>
-
-
-</body>
-</html>
