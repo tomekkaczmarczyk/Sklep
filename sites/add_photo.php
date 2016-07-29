@@ -1,6 +1,8 @@
 <?php
 require_once "../config.php";
 require_once "../src/dbConnection.php";
+$conn = connectToDataBase();
+
     if(isset($_FILES['fileToUpload']) && $_SERVER['REQUEST_METHOD'] == 'POST') {
         $id = $_POST['id'];
 
