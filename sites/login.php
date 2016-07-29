@@ -49,6 +49,8 @@ if($loggedUser) {
         echo "Zalogowano jako: " . $loggedUser->getMail();
         echo "<p><a href='index.php?action=sites/order_site'>Twoje zamówienia</a></p>";
         echo "<p><a href='index.php?action=sites/basket'>Twój koszyk</a></p>";
+        echo "<p><a href='index.php?action=sites/user_info'>Informacje o Tobie</a></p>";
+
     }
 }
 ?>

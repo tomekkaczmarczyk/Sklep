@@ -24,6 +24,7 @@
         <a href="index.php">Strona główna</a>
     </div>
     <table>
+        <p>Kategorie:</p>
         <?php
         $categories = Item::getAllCategories($conn);
         foreach ($categories as $cat) {

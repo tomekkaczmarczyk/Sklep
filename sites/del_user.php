@@ -1,15 +1,17 @@
 <?php
 require_once "../config.php";
 require_once "../src/dbConnection.php";
-if (($_SERVER['REQUEST_METHOD'] == 'GET') and ($_GET['name'])) {
+
+if (($_SERVER['REQUEST_METHOD'] == 'GET') and ($_GET['id'])) {
     $conn = connectToDataBase();
-    $name = $_GET['name'];
-    $query = "DELETE FROM items WHERE name='{$name}'";
+    $id = $_GET['id'];
+    $query = "DELETE FROM users WHERE id='{$id}'";
+    var_dump($query);
     $result = $conn->query($query);
     if ($result = true) {
-        echo "usunieto przedmiot";
+        echo "usunieto uzytkownika";
         echo "<a href='../index.php?action=sites/admin_panel'>Wroc do panelu administarcyjnego</a>";
     } else {
-        echo "nie udalo sie usunac przedmiotu";
+        echo "nie udalo sie usunac uzytkownika";
     }
 }

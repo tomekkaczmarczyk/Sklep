@@ -13,3 +13,18 @@ lub załączamy pliki footer i header do każdej podstrony.
 2.Wyświetlanie headera po wysłaniu czegoś do przeglądarki
 
 ob_end_flush() - można wysłać header po wysłaniu czegoś
+
+
+Do zrobienia:
+-wyswietlanie miniatury przy produkcie w panelu administracyjnym,
+-wysyłanie wiadomości przez admina,
+-wyswietlanie wiadomości przez użytkownika,
+-ajax formularza rejestracji,
+-wyswietlanie zdjec produktow na stronie produktow,
+-dodanie funkcjonalnosci do koszyka: liczenie kwoty koszyka, dodawanie przedmiotow,
+-dodanie funkcjonalnosci do strony informacje o użytkowniku,
+-dodanie zamówień użytkownika na stronie admin_panel,
+-dodanie wszystkich zamówien na stronie admin panel,
+
+
+-komentarze
