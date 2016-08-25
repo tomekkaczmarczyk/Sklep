@@ -15,8 +15,8 @@ if (isset($_SESSION['user_id'])) {
         echo "<p>" . $cat . "  <a href='" . $url . "'>" . "Usun te kategorie" . "</a>" . "</p>";
     };
     ?>
-
-</div>
+    </div>
+<div>
 <h3>Dodaj produkt do bazy:</h3>
 <form method="post" action="index.php?action=sites/admin_panel">
     <label>
@@ -41,7 +41,6 @@ if (isset($_SESSION['user_id'])) {
     </label>
     <button type="submit">Wyslij dane</button>
 </form>
-
 <?php
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

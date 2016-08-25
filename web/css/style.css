@@ -1,7 +1,6 @@
 .menu {
     width: 100%;
     position: fixed;
-    float: left;
     display: inline-block;
 }
 
@@ -23,7 +22,6 @@
 
 .categories {
     margin-top: 40px;
-    float: left;
     position: fixed;
 }
 
@@ -47,10 +45,10 @@
     display: inline-block;
     margin-left: 150px;
     margin-top: 70px;
+    position: relative;
 }
 
 .logdata {
-    float: right;
-    display: inline-block;
-
+    position: fixed;
+    right: 20px;
 }

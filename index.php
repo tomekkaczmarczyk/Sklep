@@ -49,13 +49,9 @@
             <li><a href="index.php">Strona główna</a></li>
             <?php
         if($loggedUser) {
-            if ($loggedUser->getIsAdmin()==1) {
-                redirect('index.php?action=sites/admin_panel');
-            } else {
-                echo "<li><a href='index.php?action=sites/order_site'>Twoje zamówienia</a></li>";
-                echo "<li><a href='index.php?action=sites/basket'>Twój koszyk</a></li>";
-                echo "<li><a href='index.php?action=sites/user_info'>Informacje o Tobie</a></li>";
-            }
+            echo "<li><a href='index.php?action=sites/order_site'>Twoje zamówienia</a></li>";
+            echo "<li><a href='index.php?action=sites/basket'>Twój koszyk</a></li>";
+            echo "<li><a href='index.php?action=sites/user_info'>Informacje o Tobie</a></li>";
         }
         ?>
         </ul>
@@ -83,6 +79,10 @@
         $file = $_GET['action'];
         if (file_exists($file . '.php')) {
             require_once $file . '.php';
+        }
+    } elseif ($loggedUser) {
+        if ($loggedUser->getIsAdmin()==1) {
+            require 'sites/admin_panel.php';
         }
     } else {
         require 'sites/login.php';
