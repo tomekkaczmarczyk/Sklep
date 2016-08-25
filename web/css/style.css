@@ -1,0 +1,56 @@
+.menu {
+    width: 100%;
+    position: fixed;
+    float: left;
+    display: inline-block;
+}
+
+.menu li {
+
+    border: 1px black solid;
+    display: inline-block;
+    margin-left: 5px;
+    padding: 5px;
+}
+.menu li a {
+    text-decoration: none;
+    color: black;
+}
+
+.menu li:hover {
+    background-color: lightgray;
+}
+
+.categories {
+    margin-top: 40px;
+    float: left;
+    position: fixed;
+}
+
+.categories li {
+    border: 1px black solid;
+    width: 100%;
+    display: block;
+    margin-top: 5px;
+    padding: 5px;
+}
+.categories li a {
+    text-decoration: none;
+    color: black;
+}
+
+.categories li:hover {
+    background-color: lightgray;
+}
+
+.container {
+    display: inline-block;
+    margin-left: 150px;
+    margin-top: 70px;
+}
+
+.logdata {
+    float: right;
+    display: inline-block;
+
+}
